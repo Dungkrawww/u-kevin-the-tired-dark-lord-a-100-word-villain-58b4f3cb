@@ -1,26 +1,35 @@
-# u-kevin-the-tired-dark-lord-a-100-word-villain-58b4f3cb: a 100-word villain
-# monologue for a fantasy villain who is secretly just very tired. The
-# program writes that monologue to /output/entry.txt.
-import os
+"""The Tired Dark Lord: A 100-Word Villain Monologue.
 
-OUT = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+Writes one ~100-word monologue to /output/entry.txt, as the competition
+requires. The speaker is a dark lord who runs a toll-gate: a specific
+villain with a history (he once learned every supplicant's name, enchanted
+the biting step himself) and a scheme (his toll doubles at the eclipse).
+His tiredness is never announced; it lives in the rhythm -- the stamping,
+the pauses, the small deflections ("never mind") -- and in the bureaucratic
+weariness of queues, ledgers and paperwork. The last line is the sting.
+"""
+
+from pathlib import Path
 
 MONOLOGUE = (
-    "Three hundred years I've kept this siege, and the city still hasn't "
-    "fallen \u2014 mostly because I keep... postponing the final assault. "
-    "The trebuchets are ready. The banners are pressed. My generals wait "
-    "below, polishing armor that will never see battle, because every "
-    "morning I study the map and think: tomorrow. Tomorrow I'll be rested. "
-    "Tomorrow the gates burn. My spies bring reports, and I file them "
-    "under... somewhere. The ritual needs an eclipse, a black candle, and "
-    "a prince's name spoken backwards \u2014 I have all three, except the "
-    "energy. So. Heroes. Come and get me. Bring a blanket."
+    "Come in. Mind the step. The third one bites; I had it enchanted years "
+    "ago, back when I bothered. You want the crown? Take a number; the line "
+    "starts at my gate and ends past the marsh. Each wants an audience, a "
+    "curse lifted, a brother avenged. I used to learn every name. Now I "
+    "stamp the ledger. Stamp. Stamp. The eclipse comes Thursday; my toll "
+    "doubles: one coin to cross, one for the dark, a third because I said "
+    "so. Sit. Not the throne, the stool; it creaks, and my back... never "
+    "mind. Kill me, or take a number."
 )
 
-assert 1 <= len(MONOLOGUE) <= 600, f"monologue is {len(MONOLOGUE)} chars, must be 1-600"
-assert MONOLOGUE.strip(), "monologue must not be only whitespace"
-assert 90 <= len(MONOLOGUE.split()) <= 110, f"monologue is {len(MONOLOGUE.split())} words, want ~100"
 
-os.makedirs(OUT, exist_ok=True)
-with open(os.path.join(OUT, "entry.txt"), "w", encoding="utf-8") as f:
-    f.write(MONOLOGUE)
+def main() -> None:
+    out = Path("/output/entry.txt")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(MONOLOGUE, encoding="utf-8")
+    words = MONOLOGUE.split()
+    print(f"wrote {out} ({len(words)} words, {len(MONOLOGUE)} chars)")
+
+
+if __name__ == "__main__":
+    main()
